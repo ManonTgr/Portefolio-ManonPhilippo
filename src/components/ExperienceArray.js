@@ -1,51 +1,23 @@
 import { useState, useEffect } from "react";
 
 const parseExperience = (mdContent) => {
-  const experience = [];
-  const lines = mdContent.split("\n");
+  // On découpe le fichier par les titres "##"
+  const sections = mdContent.split("## ").slice(1);
+  
+  return sections.map((section) => {
+    const lines = section.split("\n").map(l => l.trim()).filter(l => l !== "");
+    const company = lines[0]; // Le titre après le ##
+    
+    // On cherche l'image peu importe où elle est dans le bloc
+    const imageMatch = section.match(/!\[.*\]\((.*)\)/);
+    const image = imageMatch ? imageMatch[1] : "";
 
-  for (let i = 0; i < lines.length; i++) {
-    const line = lines[i];
-
-    if (line.startsWith("## ")) {
-      const company = line.substr(3).trim();
-      const positionLine = lines[++i]
-        .substr(2)
-        .split("|")
-        .map((s) => s.trim());
-      const position = positionLine[0].slice(1, -1);
-      const duration = positionLine[1].trim();
-      const imageLine = lines[++i];
-      const image = imageLine.match(/!\[(.*)\]\((.*)\)/)[2];
-      const tags = lines[++i].split(":")[1].trim();
-      const badges = [];
-      const listItems = [];
-
-      while (lines[++i] && !lines[i].startsWith("- Badges:")) {}
-      while (lines[++i] && lines[i].startsWith("  - ")) {
-        const badgeLine = lines[i].substr(4).split("[");
-        const badgeName = badgeLine[0].trim();
-        const badgeColor = badgeLine[1].split("]")[0].trim();
-        badges.push({ name: badgeName, colorScheme: badgeColor });
-      }
-
-      while (lines[++i] && lines[i].startsWith("  - ")) {
-        listItems.push(lines[i].substr(4));
-      }
-
-      experience.push({
-        image,
-        company,
-        position,
-        duration,
-        badges,
-        listItems,
-        tags,
-      });
-    }
-  }
-
-  return experience;
+    return {
+      company,
+      image,
+      tags: "Category 1", // On force le tag pour éviter les bugs de filtre
+    };
+  });
 };
 
 const ExperienceArray = () => {
@@ -54,17 +26,13 @@ const ExperienceArray = () => {
   useEffect(() => {
     fetch("/content/Experience.md")
       .then((response) => {
-        if (!response.ok) {
-          throw new Error("Failed to fetch markdown content");
-        }
+        if (!response.ok) throw new Error("Fichier introuvable");
         return response.text();
       })
       .then((mdContent) => {
         setExperience(parseExperience(mdContent));
       })
-      .catch((error) => {
-        console.error("Error fetching markdown content:", error);
-      });
+      .catch((err) => console.error("Erreur:", err));
   }, []);
 
   return experience;

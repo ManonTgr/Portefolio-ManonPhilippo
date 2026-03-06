@@ -2,12 +2,9 @@
 - Portable Portfolio
 
 ## Header
-- Hi, my name is Eldora. 
-- I'm a software engineer.
-- Short Description Here.
+- MANON PHILIPPO
+- ![Portrait](../assets/moi.jpg)
 
-## About
-Write your "About" section here.
 
 ## Contact
 Write your "Contact" section here.
@@ -16,4 +13,4 @@ Write your "Contact" section here.
 - Email: username@gmail.com
 
 ## Logo
-- EB
+- MP

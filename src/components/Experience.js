@@ -4,126 +4,122 @@ import {
   Text,
   Container,
   Box,
-  HStack,
   Card,
-  CardHeader,
   CardBody,
-  CardFooter,
-  Flex,
-  Badge,
   Image,
-  List,
-  ListItem,
-  ListIcon,
-  Button,
-  ButtonGroup,
-  Center,
+  SimpleGrid,
 } from "@chakra-ui/react";
-import { ChevronRightIcon } from "@chakra-ui/icons";
 import { Fade } from "react-reveal";
-import { useState, useEffect } from "react";
 import ExperienceArray from "./ExperienceArray";
-import TagsArray from "./TagsArray";
 
 export default function Experience({ color }) {
   const experience = ExperienceArray();
-  const options = TagsArray("ExperienceTags");
-  const [selected, setSelected] = useState("");
-
-  useEffect(() => {
-    if (options.length > 0) {
-      setSelected(options[0].value);
-    }
-  }, [options]);
   
-  const handleSelected = (value) => {
-    setSelected(value);
-  };
+  const sectionHaut = experience.slice(0, 4); 
+  const sectionBas = experience.slice(4, 7);  
 
   return (
-    <>
-      <Container maxW={"3xl"} id="experience">
-        <Stack
-          as={Box}
-          textAlign={"center"}
-          spacing={{ base: 8, md: 14 }}
-          pb={{ base: 20, md: 36 }}
+    <Container maxW={"6xl"} id="experience" centerContent>
+      {/* --- PREMIÈRE SECTION : PERFORMANCE --- */}
+      <Stack
+        textAlign={"center"}
+        alignItems="center"
+        w="full"
+      >
+        <Fade bottom>
+          <Stack align="center" direction="column" spacing={4} mt={0} pb={20}>
+            <Text color={`${color}.400`} fontSize="2xl" fontWeight={800} textTransform="uppercase">
+              Performance Artistique
+            </Text>
+            <Divider borderColor={`${color}.400`} width="50px" borderBottomWidth="3px" />
+          </Stack>
+        </Fade>
+
+        <SimpleGrid 
+          columns={{ base: 1, md: 2, lg: 4 }} 
+          spacing={16} 
+          px={4}
         >
-          <Stack align="center" direction="row" px={4}>
-            <HStack mx={4}>
-              <Text color={`${color}.400`} fontWeight={800}>
-                02
-              </Text>
-              <Text fontWeight={800}>Experience</Text>
-            </HStack>
-            <Divider orientation="horizontal" />
+          {sectionHaut.map((exp) => (
+            <Fade bottom key={exp.company}>
+              <Card
+                bg="transparent"
+                border="4px solid #D4AF37"
+                borderRadius="25px"
+                overflow="hidden"
+                width="220px"
+                _hover={{ transform: "scale(1.05)", boxShadow: "0 0 20px #D4AF37" }}
+              >
+                <CardBody p={0}>
+                  <Image 
+                    src={exp.image} 
+                    objectFit="cover" 
+                    objectPosition="top" 
+                    h="200px" 
+                    w="100%" 
+                    alt={exp.company} 
+                  />
+                  <Box bg="rgba(0,0,0,0.8)" p={2}>
+                    <Text color="#D4AF37" fontWeight="bold">{exp.company}</Text>
+                  </Box>
+                </CardBody>
+              </Card>
+            </Fade>
+          ))}
+        </SimpleGrid>
+      </Stack>
+
+      {/* --- L'ESPACE DE TRANSITION (Indispensable pour le scroll) --- */}
+      <Box h="100px" w="full" /> 
+
+      {/* --- DEUXIÈME SECTION : TECHNIQUES (Avec Fade pour le déroulé) --- */}
+      <Stack
+        textAlign={"center"}
+        alignItems="center"
+        w="full"
+      >
+        <Fade bottom>
+          <Stack align="center" direction="column" spacing={4} pb={20}>
+            <Text color={`${color}.400`} fontSize="2xl" fontWeight={800} textTransform="uppercase">
+              COMPÉTENCES TECHNIQUES
+            </Text>
+            <Divider borderColor={`${color}.400`} width="50px" borderBottomWidth="3px" />
           </Stack>
-          <Center px={4}>
-            <ButtonGroup variant="outline">
-              {options.map((option) => (
-                <Button
-                  colorScheme={selected === option.value ? `${color}` : "gray"}
-                  onClick={() => handleSelected(option.value)}
-                >
-                  {option.value}
-                </Button>
-              ))}
-            </ButtonGroup>
-          </Center>
-          <Stack px={4} spacing={4}>
-            {experience
-              .filter((exp) => exp.tags.includes(selected))
-              .map((exp) => (
-                <Fade bottom>
-                  <Card key={exp.company} size="sm">
-                    <CardHeader>
-                      <Flex justifyContent="space-between">
-                        <HStack>
-                          <Image src={exp.image} h={50} />
-                          <Box px={2} align="left">
-                            <Text fontWeight={600}>{exp.company}</Text>
-                            <Text>{exp.position}</Text>
-                          </Box>
-                        </HStack>
-                        <Text px={2} fontWeight={300}>
-                          {exp.duration}
-                        </Text>
-                      </Flex>
-                    </CardHeader>
-                    <CardBody>
-                      <Flex>
-                        <List align="left" spacing={3}>
-                          {exp.listItems.map((item, index) => (
-                            <ListItem key={index}>
-                              <ListIcon
-                                boxSize={6}
-                                as={ChevronRightIcon}
-                                color={`${color}.500`}
-                              />
-                              {item}
-                            </ListItem>
-                          ))}
-                        </List>
-                      </Flex>
-                    </CardBody>
-                    <CardFooter>
-                      <HStack spacing={2}>
-                        {exp.badges.map((badge) => (
-                          <Badge
-                            key={badge.name}
-                            colorScheme={badge.colorScheme}
-                          >
-                            {badge.name}
-                          </Badge>
-                        ))}
-                      </HStack>
-                    </CardFooter>
-                  </Card>
-                </Fade>
-              ))}
-          </Stack>
-        </Stack>
-      </Container>
-    </>
+        </Fade>
+
+        <SimpleGrid 
+          columns={{ base: 1, md: 2, lg: 3 }} 
+          spacing={16} 
+          px={4}
+        >
+          {sectionBas.map((exp) => (
+            <Fade bottom key={exp.company}>
+              <Card
+                bg="transparent"
+                border="4px solid #D4AF37"
+                borderRadius="25px"
+                overflow="hidden"
+                width="250px"
+                _hover={{ transform: "scale(1.05)", boxShadow: "0 0 20px #D4AF37" }}
+              >
+                <CardBody p={0}>
+                  <Image 
+                    src={exp.image} 
+                    objectFit="cover" 
+                    objectPosition="top" 
+                    h="220px" 
+                    w="100%" 
+                    alt={exp.company} 
+                  />
+                  <Box bg="rgba(0,0,0,0.8)" p={2}>
+                    <Text color="#D4AF37" fontWeight="bold">{exp.company}</Text>
+                  </Box>
+                </CardBody>
+              </Card>
+            </Fade>
+          ))}
+        </SimpleGrid>
+      </Stack>
+    </Container>
   );
 }

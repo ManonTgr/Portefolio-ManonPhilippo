@@ -13,19 +13,24 @@ function App() {
   // blue, cyan, gray, green, orange, pink, purple, red, teal, yellow
 
   // edit this variable to change the color theme
-  const color = "teal";
+  const color = "pink";
 
   return (
-    <>
-      <Nav color={color} />
-      <Header color={color} />
-      <About color={color} />
-      <Experience color={color} />
-      <Projects color={color} />
-      <Contact color={color} />
-      <Footer />
-    </>
-  );
+  <>
+    {/* <Nav color={color} /> */}
+    <Header color={color} />
+    
+    {/* On commente About pour qu'il disparaisse complètement */}
+    {/* <About color={color} /> */}
+    
+    {/* On affiche directement tes cartes Performance Artistique */}
+    <Experience color={color} />
+    
+    {/* <Projects color={color} /> */}
+    <Contact color={color} />
+    <Footer />
+  </>
+);
 }
 
 export default App;

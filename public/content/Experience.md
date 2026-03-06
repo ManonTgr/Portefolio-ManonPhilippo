@@ -1,29 +1,62 @@
-## Company 1
-- *Role* | Jan'23 - Feb'23
-- ![logo512](../assets/logo512.png)
+## Acting
+- *Artiste* | Jan'23 - Fév'23
+- ![logo](../assets/acting.png)
 - Tags: Category 1
 - Badges:
-  - Badge [blue]
+  - Danse [blue]
 - List Items:
-  - Point 1
-  - Point 2
+  - Détail du projet 1
 
-## Company 2
-- *Role* | Feb'23 - Mar'23
-- ![logo512](../assets/logo512.png)
-- Tags: Category 2
+## Dauphine
+- *Artiste* | Fév'23 - Mar'23
+- ![logo](../assets/Miss.jpg)
+- Tags: Category 1
 - Badges:
-  - Badge [blue]
+  - Scène [blue]
 - List Items:
-  - Point 1
-  - Point 2
+  - Détail du projet 2
 
-## Company 3
-- *Role* | Mar'23 - Apr'23
-- ![logo512](../assets/logo512.png)
-- Tags: Category 3
+## Shooting
+- *Artiste* | Mar'23 - Avr'23
+- ![logo](../assets/shoot.jpg)
+- Tags: Category 1
 - Badges:
-  - Badge [blue]
+  - Acting [blue]
 - List Items:
-  - Point 1
-  - Point 2
+  - Détail du projet 3
+
+## Danse
+- *Artiste* | Avr'23 - Mai'23
+- ![logo](../assets/danse.png)
+- Tags: Category 1
+- Badges:
+  - Shooting [blue]
+- List Items:
+  - Détail du projet 4
+
+## Frontend
+- *Dev* | Juin'23 - Juil'23
+- ![logo](../assets/frontend.png)
+- Tags: Category 1
+- Badges:
+  - React [blue]
+- List Items:
+  - Projet digital 1
+
+## Backend
+- *Dev* | Juil'23 - Août'23
+- ![logo](../assets/backend.png)
+- Tags: Category 1
+- Badges:
+  - Figma [blue]
+- List Items:
+  - Projet digital 2
+
+## Curriculum Vitae
+- *Dev* | Août'23 - Sept'23
+- ![logo](../assets/cv.png)
+- Tags: Category 1
+- Badges:
+  - Code [blue]
+- List Items:
+  - Projet digital 3

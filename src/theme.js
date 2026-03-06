@@ -9,7 +9,23 @@ const config = {
   useSystemColorMode: false,
 };
 
-// 3. extend the theme
-const theme = extendTheme({ config });
+// 3. Étendre le thème avec tes couleurs
+const theme = extendTheme({ 
+  config,
+  styles: {
+    global: {
+      body: {
+        bg: "#1A1A1A", // Ton gris anthracite très sombre
+        color: "white",
+      },
+    },
+  },
+  colors: {
+    brand: {
+      pink: "#D53F8C", // Ton rose foncé
+      gold: "#D4AF37", // Ton doré
+    },
+  },
+});
 
 export default theme;
