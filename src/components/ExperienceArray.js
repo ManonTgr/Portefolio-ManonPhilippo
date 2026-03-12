@@ -7,54 +7,50 @@ const parseExperience = (mdContent) => {
     const lines = section.split("\n").map(l => l.trim()).filter(l => l !== "");
     const company = lines[0]; 
     
-    // Extraction de l'image de couverture
+    // Extraction de l'image de la carte
     const imageMatch = section.match(/!\[.*\]\((.*)\)/);
     const image = imageMatch ? imageMatch[1] : "";
 
-    // Extraction du lien YouTube
+    // Extraction des données techniques (vidéos, carrousel)
     const videoLine = lines.find(l => l.toLowerCase().includes("video:"));
     const video = videoLine ? videoLine.split(/video:/i)[1].trim() : null;
 
-    // Extraction de l'extrait vidéo local (preview)
     const previewLine = lines.find(l => l.toLowerCase().includes("preview:"));
     const preview = previewLine ? previewLine.split(/preview:/i)[1].trim() : null;
 
-    // Extraction des badges
-    const badges = [];
-    const badgeMatches = section.matchAll(/-\s*(.*)\s*\[(.*)\]/g);
-    for (const match of badgeMatches) {
-      badges.push({ name: match[1], color: match[2] });
-    }
+    const imagesLine = lines.find(l => l.toLowerCase().includes("images:"));
+    const carouselImages = imagesLine 
+      ? imagesLine.split(/images:/i)[1].split(",").map(img => img.trim()) 
+      : [];
 
-    // Extraction de la description (lignes de texte pur)
-    const descriptionLines = lines.slice(1).filter(l => 
-      !l.includes("![") && 
-      !l.toLowerCase().includes("video:") && 
-      !l.toLowerCase().includes("preview:") && 
-      !l.includes("Badges:")
-    );
+    // --- NETTOYAGE STRICT DU TEXTE ---
+    // On enlève tout ce qui n'est pas du pur texte narratif
+    const descriptionLines = lines.slice(1).filter(l => {
+      const lower = l.toLowerCase();
+      return (
+        !l.includes("![") &&           // Enlève les images Markdown
+        !lower.includes("video:") &&   // Enlève la ligne vidéo (même avec tiret)
+        !lower.includes("preview:") && // Enlève la ligne preview (même avec tiret)
+        !lower.includes("images:") &&  // Enlève la ligne du carrousel
+        !lower.includes("tags:") &&    // Enlève les tags
+        !lower.includes("badges:") &&  // Enlève les badges
+        !l.includes("[") &&            // Enlève les lignes avec crochets techniques
+        l.length > 3                   // Ignore les caractères isolés
+      );
+    });
 
-    return {
-      company,
-      image,
-      video,
-      preview,
-      badges,
-      descriptionLines
-    };
+    return { company, image, video, preview, carouselImages, descriptionLines };
   });
 };
 
 const ExperienceArray = () => {
   const [experience, setExperience] = useState([]);
-
   useEffect(() => {
     fetch("/content/Experience.md")
       .then((r) => r.text())
       .then((md) => setExperience(parseExperience(md)))
-      .catch((err) => console.error("Erreur chargement Markdown:", err));
+      .catch((err) => console.error("Erreur parsing:", err));
   }, []);
-
   return experience;
 };
 
