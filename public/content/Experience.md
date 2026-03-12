@@ -1,11 +1,13 @@
 ## Acting
-- *Artiste* | Jan'23 - Fév'23
-- ![logo](../assets/acting.png)
-- Tags: Category 1
-- Badges:
-  - Danse [blue]
-- List Items:
-  - Détail du projet 1
+![photo_de_toi](../assets/acting.png)
+- preview: /assets/videotournage.mp4
+- video: https://youtu.be/qHGICrdWgl0?si=pG31IUUepsQDbHbz
+
+ Mon parcours devant la caméra n'a pas commencé par un script, mais par un défi envers moi-même. Suite à une prise de poids, j'ai choisi l'objectif des photographes comme thérapie pour apprendre à m'aimer à nouveau. Ce qui a débuté comme une quête de confiance en soi s'est transformé en une véritable révélation.
+
+Élue 1ère Dauphine Miss Plus Size Hauts-de-France, cette expérience a agi comme un tremplin, me prouvant que la beauté réside dans l'authenticité et la présence. C'est lors de ce cheminement qu'une casteuse a décelé mon potentiel et m'a offert mon premier rôle pour une vidéo YouTube.
+
+Un an plus tard, cette même confiance professionnelle s'est confirmée lorsqu'elle m'a recontactée pour un nouveau projet. Aujourd'hui, chaque tournage est pour moi l'occasion de mêler ma sensibilité artistique à cette force intérieure que j'ai bâtie, avec la volonté de porter des messages de diversité et de résilience à l'écran.
 
 ## Dauphine
 - *Artiste* | Fév'23 - Mar'23

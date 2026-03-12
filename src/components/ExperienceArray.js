@@ -1,21 +1,46 @@
 import { useState, useEffect } from "react";
 
 const parseExperience = (mdContent) => {
-  // On découpe le fichier par les titres "##"
   const sections = mdContent.split("## ").slice(1);
   
   return sections.map((section) => {
     const lines = section.split("\n").map(l => l.trim()).filter(l => l !== "");
-    const company = lines[0]; // Le titre après le ##
+    const company = lines[0]; 
     
-    // On cherche l'image peu importe où elle est dans le bloc
+    // Extraction de l'image de couverture
     const imageMatch = section.match(/!\[.*\]\((.*)\)/);
     const image = imageMatch ? imageMatch[1] : "";
+
+    // Extraction du lien YouTube
+    const videoLine = lines.find(l => l.toLowerCase().includes("video:"));
+    const video = videoLine ? videoLine.split(/video:/i)[1].trim() : null;
+
+    // Extraction de l'extrait vidéo local (preview)
+    const previewLine = lines.find(l => l.toLowerCase().includes("preview:"));
+    const preview = previewLine ? previewLine.split(/preview:/i)[1].trim() : null;
+
+    // Extraction des badges
+    const badges = [];
+    const badgeMatches = section.matchAll(/-\s*(.*)\s*\[(.*)\]/g);
+    for (const match of badgeMatches) {
+      badges.push({ name: match[1], color: match[2] });
+    }
+
+    // Extraction de la description (lignes de texte pur)
+    const descriptionLines = lines.slice(1).filter(l => 
+      !l.includes("![") && 
+      !l.toLowerCase().includes("video:") && 
+      !l.toLowerCase().includes("preview:") && 
+      !l.includes("Badges:")
+    );
 
     return {
       company,
       image,
-      tags: "Category 1", // On force le tag pour éviter les bugs de filtre
+      video,
+      preview,
+      badges,
+      descriptionLines
     };
   });
 };
@@ -25,14 +50,9 @@ const ExperienceArray = () => {
 
   useEffect(() => {
     fetch("/content/Experience.md")
-      .then((response) => {
-        if (!response.ok) throw new Error("Fichier introuvable");
-        return response.text();
-      })
-      .then((mdContent) => {
-        setExperience(parseExperience(mdContent));
-      })
-      .catch((err) => console.error("Erreur:", err));
+      .then((r) => r.text())
+      .then((md) => setExperience(parseExperience(md)))
+      .catch((err) => console.error("Erreur chargement Markdown:", err));
   }, []);
 
   return experience;

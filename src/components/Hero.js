@@ -20,7 +20,7 @@ export default function Header({ color }) {
         align="center"
         w="full"
       >
-        {/* GAUCHE : Nom et Slogan */}
+        {/* Nom et Slogan */}
         <Stack spacing={4} align={{ base: "center", md: "start" }} textAlign={{ base: "center", md: "left" }}>
           <Heading
             fontWeight={800}
@@ -43,10 +43,10 @@ export default function Header({ color }) {
           </Text>
         </Stack>
 
-        {/* DROITE : Portrait avec ta photo */}
+        {}
         <Box mt={{ base: 10, md: 0 }} position="relative">
           <Image
-  src="/assets/moi.jpg" // Chemin direct depuis le dossier public
+  src="/assets/moi.jpg" 
   borderRadius="full"
   boxSize={{ base: "250px", md: "350px" }}
   objectFit="cover"
